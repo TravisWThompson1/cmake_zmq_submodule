@@ -1,6 +1,8 @@
 [submodule "extern/cppzmq"]
 	path = extern/cppzmq
 	url = https://github.com/zeromq/cppzmq
+	ignore = dirty
 [submodule "extern/libzmq"]
 	path = extern/libzmq
 	url = https://github.com/zeromq/libzmq
+	ignore = dirty
