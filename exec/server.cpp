@@ -24,14 +24,22 @@ int main()
         zmq::message_t request;
 
         // receive a request from client
-        socket.recv(request, zmq::recv_flags::none);
-        std::cout << "Received " << request.to_string() << std::endl;
+        zmq::recv_result_t recvResult = socket.recv(request, zmq::recv_flags::none);
 
-        // simulate work
-        std::this_thread::sleep_for(1s);
+        if (recvResult.has_value()) {
 
-        // send the reply to the client
-        socket.send(zmq::buffer(data), zmq::send_flags::none);
+            std::cout << "Received " << request.to_string() << std::endl;
+
+            // simulate work
+            std::this_thread::sleep_for(1s);
+
+            // send the reply to the client
+            zmq::send_result_t sendResult = socket.send(zmq::buffer(data), zmq::send_flags::none);
+
+            if (!sendResult.has_value()) {
+                std::cout << "Failed to send " << request.to_string() << std::endl;
+            }
+        }
     }
 
     return 0;

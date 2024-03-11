@@ -19,15 +19,20 @@ int main()
     {
         // send the request message
         std::cout << "Sending Hello " << request_num << "..." << std::endl;
-        socket.send(zmq::buffer(data), zmq::send_flags::none);
-        
-        // wait for reply from server
-        zmq::message_t reply{};
-        socket.recv(reply, zmq::recv_flags::none);
+        zmq::send_result_t sendResult = socket.send(zmq::buffer(data), zmq::send_flags::none);
 
-        std::cout << "Received " << reply.to_string(); 
-        std::cout << " (" << request_num << ")";
-        std::cout << std::endl;
+        if (sendResult.has_value()) {
+        
+            // wait for reply from server
+            zmq::message_t reply{};
+            zmq::recv_result_t recvResult = socket.recv(reply, zmq::recv_flags::none);
+
+            if (recvResult.has_value()) {
+                std::cout << "Received " << reply.to_string(); 
+                std::cout << " (" << request_num << ")";
+                std::cout << std::endl;
+            }
+        }
     }
 
     return 0;
