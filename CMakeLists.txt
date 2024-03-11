@@ -31,17 +31,17 @@ add_subdirectory(extern/libzmq EXCLUDE_FROM_ALL)
 # --------------------------------------------
 
 # Declare the target executable and source files
-add_executable(test_server exec/server.cpp)
+add_executable(server exec/server.cpp)
 
 # Declare the includes, libraries to link, and build options for the target
-target_include_directories(test_server PUBLIC extern/cppzmq)
-target_link_libraries(test_server PUBLIC libzmq-static)
-target_compile_options(test_server PUBLIC ${BUILD_WARNINGS})
+target_include_directories(server PUBLIC extern/cppzmq)
+target_link_libraries(server PUBLIC libzmq-static)
+target_compile_options(server PUBLIC ${BUILD_WARNINGS})
 
 # Declare the target executable and source files
-add_executable(test_client exec/client.cpp)
+add_executable(client exec/client.cpp)
 
 # Declare the includes, libraries to link, and build options for the target
-target_include_directories(test_client PUBLIC extern/cppzmq)
-target_link_libraries(test_client PUBLIC libzmq-static)
-target_compile_options(test_client PUBLIC ${BUILD_WARNINGS})
+target_include_directories(client PUBLIC extern/cppzmq)
+target_link_libraries(client PUBLIC libzmq-static)
+target_compile_options(client PUBLIC ${BUILD_WARNINGS})
